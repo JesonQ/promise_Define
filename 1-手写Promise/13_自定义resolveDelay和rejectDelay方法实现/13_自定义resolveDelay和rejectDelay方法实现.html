@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13_自定义resolveDelay和rejectDelay方法实现</title>
+</head>
+<body>
+<script src="Promise.js"></script>
+
+<script>
+
+    /* 
+        封装思路:
+        1. resolveDelay接收两个参数,第一个为任意值,第二个为延时时间,实现延时返回成功/失败promise的功能
+        2. rejectDelay接收两个参数,第一个为任意值,第二个为延时时间,实现延时返回失败的promise的功能
+        3. 在resolve与reject封装的基础上进行封装,加入延时返回结果功能
+        4. 如果使用者在成功/失败的回调位置传入非函数类型怎么办?(成功/失败回调的类型判断)
+    */
+    // const p1 = Promise.resolveDelay('成功啦', 3000);
+    // const p2 = Promise.rejectDelay('失败啦', 3000);
+
+    
+
+
+</script>
+</body>
+</html>

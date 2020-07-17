@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_异步then方法的多次调用与状态只能改变一次</title>
+    <script src="Promise.js"></script>
+</head>
+
+<body>
+
+    <script>
+        /*
+            封装思路:
+            1. 实现promise异步修改状态下,then方法的多次调用
+            2. promise的状态修改只能是一次,连续调用resolve和reject会执行哪个?
+            3. 在调用resolve/reject后,紧随其后的代码会执行吗?
+         */
+        let p = new Promise((resolve, reject) => {
+            resolve("成功了")
+        })
+
+        p.then(
+            (value) => {
+                console.log(value)
+            },
+            (reason) => {
+                console.log(reason)
+            }
+        )
+
+        console.log(p)
+    </script>
+</body>
+
+</html>

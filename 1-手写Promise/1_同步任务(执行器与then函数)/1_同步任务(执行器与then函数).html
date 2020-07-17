@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_同步任务(执行器与then函数)</title>
+    <script src="Promise.js"></script>
+</head>
+<body>
+
+<script>
+    /**
+     如何改变promise的状态?
+     (1) resolve(value): 如果当前是 pendding 就会变为 resolved
+     (2) reject(reason): 如果当前是 pendding 就会变为 rejected
+     (3) 抛出异常: 如果当前是 pendding 就会变为 rejected
+     */
+
+    /* 
+        封装思路:
+        1. 同步调用resolve将pending状态改为resolved,调用reject将pending状态改为rejected
+        2. 抛出异常: 如果当前是 pending 状态变为 rejected
+        3. then函数的同步封装, 根据状态来决定调用成功/失败的回调
+    */
+    
+    let p = new Promise((resolve, reject)=>{
+        resolve("成功了")
+    })
+
+    p.then(
+        (value)=>{
+            console.log(value)
+        },
+        (reason)=>{
+            console.log(reason)
+        }
+    )
+
+    console.log(p)
+    
+   
+
+
+</script>
+</body>
+</html>

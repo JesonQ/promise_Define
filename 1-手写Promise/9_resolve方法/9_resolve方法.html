@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>9_resolve方法</title>
+    <script src="Promise.js"></script>
+</head>
+
+<body>
+
+    <script>
+        /* 
+            封装思路:
+            1. resolve是谁的方法?
+            2. resolve的返回值是什么?
+            2. resolve的参数是否为Promise的实例,进行对应的操作
+        */
+        const p1 = Promise.resolve('成功啦');
+        const p2 = Promise.resolve(
+            new Promise((resolve, reject) => {
+                resolve('OK');
+            })
+        );
+        const p3 = Promise.resolve(new Promise((resolve, reject) => {
+            reject('FAIL');
+        }));
+        const p4 = Promise.resolve(Promise.resolve('Yes'));
+
+
+        console.log(p1);  // 
+        console.log(p2);  // 
+        console.log(p3);  // 
+        console.log(p4);  // 
+    </script>
+
+</body>
+
+</html>

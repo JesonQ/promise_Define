@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10_reject方法封装</title>
+    <!-- <script src="Promise.js"></script> -->
+</head>
+<body>
+
+<script>
+
+    /* 
+        封装思路:
+        1. 简单粗暴,直接返回一个失败的promise, ---over
+        2. Promise.resolve(Promise.reject(Promise.resolve('成功啦!')))是什么结果?
+    */
+    const p1 = Promise.reject('失败啦');
+    const p2 = Promise.reject(new Promise((resolve, reject)=>{
+        resolve('OK');
+    }));
+    const p3 = Promise.reject(new Promise((resolve, reject)=>{
+        reject('FAIL');
+    }));
+    const p4 = Promise.reject(Promise.resolve('Yes'));
+    const p5 = Promise.reject(Promise.reject('No'));
+
+    // console.log(p1);
+    // console.log(p2);
+    // console.log(p3);
+    // console.log(p4);
+    // console.log(p5);
+</script>
+
+</body>
+</html>

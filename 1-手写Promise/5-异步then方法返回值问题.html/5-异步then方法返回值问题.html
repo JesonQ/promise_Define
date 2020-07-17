@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>5-异步then方法返回值问题</title>
+    <script src="Promise.js"></script>
+</head>
+
+<body>
+
+    <script>
+
+        /* 
+            封装思路:
+            1. 异步调用resolve/reject,then方法返回的是什么?(成功回调/失败回调的返回问题)
+        */
+
+        let p = new Promise((resolve, reject) => {
+            resolve("成功了")
+        })
+
+        p.then(
+            (value) => {
+                console.log(value)
+            },
+            (reason) => {
+                console.log(reason)
+            }
+        )
+
+        console.log(p)
+    </script>
+
+</body>
+
+</html>

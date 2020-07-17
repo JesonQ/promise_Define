@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11_all方法实现</title>
+</head>
+<body>
+<script src="Promise.js"></script>
+
+<script>
+
+    /* 
+        封装思路:
+        1. all方法的使用注意: 参数与返回值
+        2. all方法数组中有一个失败返回值为失败,那么all返回值就是失败
+        3. 遍历all方法传入的参数,一个失败调用reject,全部成功返回每项的成功值
+        4. 根据什么确定传入的参数数组每一项都是成功呢?
+        5. 如何在异步情况下正确顺序返回所有的promise返回值
+    */
+    //声明三个成功的 Promise 对象
+    const p1 = new Promise((resolve, reject) => {
+        // setTimeout(()=>{
+            resolve(111);
+        // },3000)
+    });
+
+    const p2 = Promise.resolve(222);
+    // const p2 = Promise.reject(555);
+
+    const p3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(333);
+        }, 1000)
+    });
+
+    let p = Promise.all([p1,p3,p2]);
+
+    console.log(p)
+    
+
+
+
+</script>
+</body>
+</html>

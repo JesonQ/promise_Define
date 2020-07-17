@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6_then方法优化-then串联</title>
+    <script src="Promise.js"></script>
+</head>
+
+<body>
+
+    <script>
+        /* 
+            封装优化思路:
+            1. 是否有代码可以提到上级作用域,减少代码量的书写
+            2. 封装的代码是否有相似或者一样的代码块?是否可以提取为函数呢?
+            3. ...
+        */
+
+        let p = new Promise((resolve, reject) => {
+            resolve("成功了")
+        })
+
+        p.then(
+            (value) => {
+                console.log(value)
+            },
+            (reason) => {
+                console.log(reason)
+            }
+        )
+
+        console.log(p)
+
+    </script>
+
+</body>
+
+</html>
