@@ -20,7 +20,10 @@
         */
 
         let p = new Promise((resolve, reject) => {
-            resolve("成功了")
+            setTimeout(()=>{
+                resolve("成功了")
+                // reject("失败了")
+            },2000)
         })
 
         p.then(
