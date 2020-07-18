@@ -31,7 +31,16 @@ function Promise(excutor) {
   }
 }
 
-// then方法
+// then方法  onResolved   当....的时候...
 Promise.prototype.then = function (onResolved, onRejected){
-  
+  // 存储this
+  let self = this
+  // 当状态为resolved
+  if(self.status === "resolved"){
+    onResolved(self.data)
+  }
+  // 当状态为rejected
+  if(self.status === "rejected"){
+    onRejected(self.data)
+  }
 }
