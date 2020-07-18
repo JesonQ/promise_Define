@@ -12,24 +12,32 @@ function Promise(excutor) {
   self.callbacks = []
   // 定义resolve
   function resolve(value) {
+    // 判断状态
+    if(self.status !== "pending") return
     // 修改状态
     self.status = "resolved"
     // 修改数据
     self.data = value
     // 调用成功的回调
     if (self.callbacks.length > 0) {
-      self.callbacks[0].success(self.data)
+      self.callbacks.forEach(callbackObj => {
+        callbackObj.success(self.data)
+      });
     }
   }
   // 定义reject
   function reject(reason) {
+    // 判断状态
+    if(self.status !== "pending") return
     // 修改状态
     self.status = "rejected"
     // 修改数据
     self.data = reason
     // 调用失败的回调
     if (self.callbacks.length > 0) {
-      self.callbacks[0].fail(self.data)
+      self.callbacks.forEach(callbackObj => {
+        callbackObj.fail(self.data)
+      });
     }
   }
   // 如果执行器抛出错误,状态为rejected

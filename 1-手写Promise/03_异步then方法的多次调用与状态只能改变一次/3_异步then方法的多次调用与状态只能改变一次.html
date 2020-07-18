@@ -20,8 +20,20 @@
             3. 在调用resolve/reject后,紧随其后的代码会执行吗?
          */
         let p = new Promise((resolve, reject) => {
-            resolve("成功了")
+            // setTimeout(()=>{
+                resolve("成功了")
+                reject("失败了")
+            // },2000)
         })
+
+        p.then(
+            (value) => {
+                console.log(value)
+            },
+            (reason) => {
+                console.log(reason)
+            }
+        )
 
         p.then(
             (value) => {
