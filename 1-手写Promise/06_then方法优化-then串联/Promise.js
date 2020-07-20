@@ -54,12 +54,12 @@ function Promise(excutor) {
 Promise.prototype.then = function (onResolved, onRejected) {
   // 存储this
   let self = this
-  // 当状态为resolved
-  if (self.status === "resolved") {
-    // 返回promise
-    return new Promise((resolve, reject) => {
+  // 返回promise
+  return new Promise((resolve, reject) => {
+    // 封装回调调用
+    function callback(type) {
       // 获取成功回调的返回结果
-      let res = onResolved(self.data)
+      let res = type(self.data)
       // 判断
       if (res instanceof Promise) {
         res.then(  // promise实例身上必然有then方法
@@ -73,69 +73,34 @@ Promise.prototype.then = function (onResolved, onRejected) {
       } else {
         resolve(res)
       }
-    })
-  }
-  // 当状态为rejected
-  if (self.status === "rejected") {
-    // 返回promise
-    return new Promise((resolve, reject) => {
-      // 获取失败回调的返回结果
-      let res = onRejected(self.data)
-      // 判断
-      if (res instanceof Promise) {
-        res.then(  // promise实例身上必然有then方法
-          (v) => {
-            resolve(v)
-          },
-          (r) => {
-            reject(r)
-          }
-        )
-      } else {
-        resolve(res)  // 非promise值
-      }
-    })
-  }
-  // 异步任务 存储回调
-  if (self.status === "pending") {
-    // 返回promise
-    return new Promise((resolve, reject) => {
+    }
+    // 当状态为resolved
+    if (self.status === "resolved") {
+      callback(onResolved)
+    }
+    // 当状态为rejected
+    if (self.status === "rejected") {
+      callback(onRejected)
+    }
+    // 异步任务 存储回调
+    if (self.status === "pending") {
       // 异步任务的存储
       self.callbacks.push({
         success: function () {
           try {  // 异步错误捕获
-            // 获取成功回调返回值
-            let res = onResolved(self.data)
-            // 判断
-            if (res instanceof Promise) {
-              res.then(  // promise实例身上必然有then方法
-                (v) => {
-                  resolve(v)
-                },
-                (r) => {
-                  reject(r)
-                }
-              )
-            } else {
-              resolve(res)  // 非promise值
-            }
+            callback(onResolved)
           } catch (e) {
             reject(e)  // 抛出异常调用失败
           }
         },
         fail: function () {
           try {
-            let res = onRejected(self.data)
-            if (res instanceof Promise) {
-              res.then(resolve, reject)
-            } else {
-              resolve(res)
-            }
+            callback(onRejected)
           } catch (e) {
             reject(e)
           }
         }
       })
-    })
-  }
+    }
+  })
 }

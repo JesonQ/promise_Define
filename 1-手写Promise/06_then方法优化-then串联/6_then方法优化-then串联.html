@@ -21,19 +21,28 @@
         */
 
         let p = new Promise((resolve, reject) => {
-            resolve("成功了")
+            // resolve("成功了")
+            setTimeout(()=>{
+                reject("失败了")
+            },2000)
         })
 
-        p.then(
+       let result =  p.then(
             (value) => {
                 console.log(value)
             },
             (reason) => {
                 console.log(reason)
+                // return undefined
+                // throw new Error("出错了")
+                return new Promise((resolve, reject)=>{
+                    // resolve("成功2")
+                    reject("失败2")
+                })
             }
         )
 
-        console.log(p)
+        console.log(result)
 
     </script>
 
