@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回顾数据类型检测</title>
+</head>
+<body>
+  <script type="text/javascript">
+
+    // type of
+    var a = 10;
+    a = 'zhaoliying';
+    a = true;
+    a = undefined;
+    a = function(){};
+    
+    a = null;
+    a = [];
+    a = {};
+    console.log(typeof a);
+    console.log(typeof typeof typeof a);
+    
+    //A instanceof B   用来判断A这个对象 是不是 B这个构造函数的实例
+    //用来区分数组和对象的，以后去看这个数据是不是数组Array的实例就好了，如果是那它就是数组；
+    //console.log(a instanceof Array);
+    console.log(a instanceof Object);
+    
+    
+    //如果你想判断这个值是不是null 直接用===,因为null这个数据类型只有一个值null
+    //同理这个全等也可以判断undefined;
+    console.log(a === null);
+    console.log(a === undefined);
+    
+    
+    
+    
+  </script>
+</body>
+</html>
