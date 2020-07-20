@@ -32,13 +32,14 @@
         */
 
         let p = new Promise((resolve, reject) => {
-            resolve("成功了")
+            // resolve("成功了")
+            reject("失败了")
         })
 
         let result = p.then(
             (value) => {
                 console.log(value)
-                throw new Error("出错了")
+                // throw new Error("出错了")
                 // return "123"
                 // return new Promise((resolve, reject)=>{
                 //     // resolve("成功2")
@@ -47,6 +48,12 @@
             },
             (reason) => {
                 console.log(reason)
+                throw new Error("出错了")
+                // return "123"
+                // return new Promise((resolve, reject)=>{
+                //     // resolve("成功2")
+                //     reject("失败2")
+                // })
             }
         )
 

@@ -74,7 +74,21 @@ Promise.prototype.then = function (onResolved, onRejected) {
   }
   // 当状态为rejected
   if (self.status === "rejected") {
-    onRejected(self.data)
+    return new Promise((resolve, reject)=>{
+      let res = onRejected(self.data)
+      if(res instanceof Promise){
+        res.then(
+          (v)=>{
+            resolve(v)
+          },
+          (r)=>{
+            reject(r)
+          }
+        )
+      }else{
+        resolve(res)
+      }
+    })
   }
   // 异步任务 存储回调
   if (self.status === "pending") {
