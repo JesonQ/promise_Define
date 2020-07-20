@@ -25,8 +25,8 @@
            3. 链式调用catch捕获错误后再继续链式调用会怎么样?
         */
         let p = new Promise((resolve, reject) => {
-            // reject('失败啦')
-            resolve('ok')
+            reject('失败啦')
+            // resolve('ok')
         });
 
         // 直接处理
@@ -46,24 +46,24 @@
             //     throw reason
             // }
         )
-        .then(
-            value => {
-                console.log('这个有点难度!!');
-                // return '异常穿透';
-            },
-            // reason=>{
-            //     throw reason
-            // }
-        ).catch(// then(undefined, onRejected);
-            reason => {
-                console.error(reason);
-            }
-        )
-        .then(
-            value => {
-                console.log(value);
-            }
-        )
+            .then(
+                value => {
+                    console.log('这个有点难度!!');
+                    // return '异常穿透';
+                },
+                // reason=>{
+                //     throw reason
+                // }
+            ).catch(// then(undefined, onRejected);
+                reason => {
+                    console.error(reason);
+                }
+            )
+        // .then(
+        //     value => {
+        //         console.log(value);
+        //     }
+        // )
     </script>
 
 </body>

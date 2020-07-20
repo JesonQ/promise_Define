@@ -18,27 +18,42 @@
      */
 
      let p = new Promise((resolve, reject) => {
-        resolve('成功啦')
+        // resolve('成功啦')
+        reject("失败了")
     });
 
     // 直接处理
     p.then(
         value => {
             console.log(111);
-        }
+        },
+        // reason => { throw reason }
     ).then(
         value => {
             console.log(222);
             //返回一个 pending 状态的 promise 对象
-            return new Promise((resolve, reject)=>{})
-        }
+            // return new Promise((resolve, reject)=>{})
+        },
+        // reason => { throw reason }
     ).then(
         value => {
             console.log(333);
-        }
+            return undefined
+        },
+        // reason => { throw reason }
     ).catch(
+        // v => { return v },
         reason => {
             console.error(reason);
+            return new Promise((resolve, reject)=>{})
+        }
+    ).then(
+        (v)=>{
+            console.log(v)
+        }
+    ).then(
+        (v)=>{
+            console.log("我又成功了")
         }
     )
 </script>
