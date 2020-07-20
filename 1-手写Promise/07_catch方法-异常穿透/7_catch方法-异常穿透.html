@@ -7,7 +7,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>7_catch方法-异常穿透</title>
-    <!-- <script src="Promise.js"></script> -->
+    <script src="Promise.js"></script>
 </head>
 
 <body>
@@ -30,32 +30,40 @@
         });
 
         // 直接处理
-        // p.catch(
+        // let result = p.catch(
         //     reason =>{
         //         console.error(reason);
         //     }
         // );
 
-        // //异常穿透
+        // console.log(result)
+        //异常穿透
         p.then(
             value => {
                 // throw '失败啦!!';
+            },
+            // reason=>{
+            //     throw reason
+            // }
+        )
+        .then(
+            value => {
+                console.log('这个有点难度!!');
+                // return '异常穿透';
+            },
+            // reason=>{
+            //     throw reason
+            // }
+        ).catch(// then(undefined, onRejected);
+            reason => {
+                console.error(reason);
             }
         )
-            .then(
-                value => {
-                    console.log('这个有点难度!!');
-                    return '异常穿透';
-                }
-            ).catch(// then(undefined, onRejected);
-                reason => {
-                    console.error(reason);
-                }
-            ).then(
-                value => {
-                    console.log(value);
-                }
-            )
+        .then(
+            value => {
+                console.log(value);
+            }
+        )
     </script>
 
 </body>
