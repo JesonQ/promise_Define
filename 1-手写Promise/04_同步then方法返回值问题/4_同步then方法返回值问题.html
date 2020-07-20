@@ -38,8 +38,8 @@
         let result = p.then(
             (value) => {
                 console.log(value)
-                // throw new Error("出错了")
-                return "123"
+                throw new Error("出错了")
+                // return "123"
                 // return new Promise((resolve, reject)=>{
                 //     // resolve("成功2")
                 //     reject("失败2")

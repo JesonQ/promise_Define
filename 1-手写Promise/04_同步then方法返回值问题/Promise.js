@@ -59,7 +59,14 @@ Promise.prototype.then = function (onResolved, onRejected) {
       // 获取成功回调的返回结果
       let res = onResolved(self.data)
       if(res instanceof Promise){
-
+        res.then(
+          (value)=>{
+            resolve(value)
+          },
+          (reason)=>{
+            reject(reason)
+          }
+        )
       }else{
         resolve(res)
       }
