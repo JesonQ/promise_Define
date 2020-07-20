@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>1_同步任务(执行器与then函数)</title>
-    <script src="Promise.js"></script>
+    <!-- <script src="Promise.js"></script> -->
 </head>
 <body>
 
@@ -27,8 +27,8 @@
     
     let p = new Promise((resolve, reject)=>{
         // console.log("你最帅")
-        // resolve("成功了")
-        reject("失败了")
+        resolve("成功了")
+        // reject("失败了")
         // throw new Error("出错了")
     })
 
