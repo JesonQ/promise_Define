@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>async</title>
+</head>
+
+<body>
+
+    <script>
+        /**
+         *
+         * 返回的结果是一个 Promise 对象
+         * Promise 对象状态时由返回值 决定的.
+         1. 返回非promise的情况
+         return '数据';
+         2. throw 抛出错误
+         throw '失败了!!';
+         throw new Error('失败啦!!');
+         3. 返回的是一个 Promise 的情况
+         */
+        // resolved 和 fulfilled都是成功的, 是一样的
+        async function main(){
+            // return "123"
+            // return new Promise((resolve, reject)=>{
+            //     // resolve("成功了")
+            //     reject("失败了")
+            // })
+            throw "出错了!!"
+        }
+
+        let result = main()
+        console.log(result)
+        
+
+        
+
+        
+
+        
+
+
+
+
+    </script>
+</body>
+
+</html>
