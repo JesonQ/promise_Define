@@ -31,12 +31,12 @@
     // const p2 = Promise.reject(555);
 
     const p3 = new Promise((resolve, reject) => {
-        setTimeout(() => {
+        // setTimeout(() => {
             resolve(333);
-        }, 1000)
+        // }, 1000)
     });
 
-    let p = Promise.all([p1,p3,p2]);
+    let p = Promise.all([p1,p2,p3]);
 
     console.log(p)
     
