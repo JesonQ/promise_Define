@@ -41,4 +41,5 @@ async function main(){
    let three = await mainReadFile("./resource/3.html");
    console.log(one+two+three+"")
 }
+
 main()

@@ -16,41 +16,41 @@
          * 声明一个函数sendAJAX,用来发送ajax请求接收一个url参数
          *      --- sendAjax(url)   GET
          * 返回一个 Promise 对象
+         * 
+         * 段子接口 : https://v1.hitokoto.cn/?encode=json
          */
-        function sendAJAX(url){
-            return new Promise((resolve, reject)=>{
-                // 1. 创建xml
-                let XML = new XMLHttpRequest()
-                // 2. 接收返回结果
-                XML.onreadystatechange = function(){
-                    if(XML.readyState !== 4) return
-                    if(XML.status === 200){
-                        resolve(XML.responseText)
-                    }else{
-                        reject(XML.status)
+
+        // async 与 await
+        function sendAJAX(url) {
+            return new Promise((resolve, reject) => {
+                // 1.实例化
+                let xhr = new XMLHttpRequest();
+                // 2. 绑定事件
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            resolve(xhr.response)
+                        }else{
+                            reject("请求失败了,状态码为" + xhr.status)
+                        }
                     }
                 }
                 // 3. 初始化
-                XML.open("GET", url)
-                // 4. 发送请求
-                XML.send()
-
+                xhr.open("get", url)
+                // 4. 发送
+                xhr.send()
             })
-            
+
         }
 
         async function main(){
-            let res = await sendAJAX("https://api.apiopen.top/getJoke")  
+            let res = await sendAJAX("https://v1.hitokoto.cn/?encode=json")
             let data = JSON.parse(res)
             console.log(data)
         }
-        
         main()
-
-        // async 与 await
         
 
-        
 
 
     </script>
