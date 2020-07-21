@@ -151,13 +151,28 @@ Promise.all = function (promiseArr){
       promiseArr[i].then(
         (v)=>{
           num ++;  // 累加
-          // proArr.push(v)  // 将每一项的值放到数组中
-          proArr[i] = v; // 解决异步问题
+          proArr.push(v)  // 将每一项的值放到数组中
           // console.log(proArr)
           if(num === promiseArr.length){  // 判断长度
             // console.log("都成功了")
             resolve(proArr)
           }
+        },
+        (r)=>{
+          reject(r)
+        }
+      )
+    }
+  })
+}
+
+// Promise.race
+Promise.race = function (promiseArr){
+  return new Promise((resolve, reject)=>{
+    for(let i in promiseArr){
+      promiseArr[i].then(
+        (v)=>{
+          resolve(v)
         },
         (r)=>{
           reject(r)

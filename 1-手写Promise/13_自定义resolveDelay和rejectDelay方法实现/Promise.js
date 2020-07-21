@@ -124,45 +124,82 @@ Promise.prototype.catch = function (onRejected) {
 }
 
 // Promise.resolve
-Promise.resolve = function (value){
-  return new Promise((resolve, reject)=>{
-    if(value instanceof Promise){
+Promise.resolve = function (value) {
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
       value.then(resolve, reject)
-    }else{
+    } else {
       resolve(value)
     }
   })
 }
 
 // Promise.reject
-Promise.reject = function (reason){
-  return new Promise((resolve, reject)=>{
+Promise.reject = function (reason) {
+  return new Promise((resolve, reject) => {
     reject(reason)
   })
 }
 
 // Promise.all
-Promise.all = function (promiseArr){
-  return new Promise((resolve, reject)=>{
+Promise.all = function (promiseArr) {
+  return new Promise((resolve, reject) => {
     let num = 0;   // 定义计数器 在for循环之外
     let proArr = []; // 定义数组,用来存储值 
-    for(let i in promiseArr){  
+    for (let i in promiseArr) {
       // console.log(promiseArr[i])
       promiseArr[i].then(
-        (v)=>{
-          num ++;  // 累加
-          // proArr.push(v)  // 将每一项的值放到数组中
-          proArr[i] = v; // 解决异步问题
+        (v) => {
+          num++;  // 累加
+          proArr.push(v)  // 将每一项的值放到数组中
           // console.log(proArr)
-          if(num === promiseArr.length){  // 判断长度
+          if (num === promiseArr.length) {  // 判断长度
             // console.log("都成功了")
             resolve(proArr)
           }
         },
-        (r)=>{
+        (r) => {
           reject(r)
         }
       )
     }
+  })
+}
+
+// Promise.race
+Promise.race = function (promiseArr) {
+  return new Promise((resolve, reject) => {
+    for (let i in promiseArr) {
+      promiseArr[i].then(
+        (v) => {
+          resolve(v)
+        },
+        (r) => {
+          reject(r)
+        }
+      )
+    }
+  })
+}
+
+// 自定义的 Promise.resolveDelay(自己搞的,官方是没有的)
+Promise.resolveDelay = function (value, time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (value instanceof Promise) {
+        value.then(resolve, reject)
+      } else {
+        resolve(value)
+      }
+    },time)
+  })
+}
+
+// Promise.rejectDelay(自己搞的,官方是没有的)
+Promise.rejectDelay = function (reason, time){
+  return new Promise((resolve, reject)=>{
+    setTimeout(() => {
+      reject(reason)
+    }, time);
   })
 }

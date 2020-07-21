@@ -22,9 +22,9 @@
     */
     //声明三个成功的 Promise 对象
     const p1 = new Promise((resolve, reject) => {
-        // setTimeout(()=>{
+        setTimeout(()=>{
             resolve(111);
-        // },3000)
+        },2000)
     });
 
     const p2 = Promise.resolve(222);

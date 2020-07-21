@@ -20,8 +20,21 @@
         4. 如果使用者在成功/失败的回调位置传入非函数类型怎么办?(成功/失败回调的类型判断)
     */
     // const p1 = Promise.resolveDelay('成功啦', 3000);
-    // const p2 = Promise.rejectDelay('失败啦', 3000);
+    // const p1 = Promise.resolveDelay(new Promise((resolve, reject)=>{
+    //     resolve("成功了")
+    // }), 3000);
+    const p2 = Promise.rejectDelay('失败啦', 3000);
 
+    p2.then(
+        (v)=>{
+            console.log(v)
+        },
+        (r)=>{
+            console.log(r)
+        }
+    )
+
+    console.log(p2)
     
 
 
