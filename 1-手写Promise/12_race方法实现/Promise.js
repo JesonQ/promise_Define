@@ -20,12 +20,14 @@ function Promise(excutor) {
     // 修改数据
     self.data = value
     // 调用成功的回调
-    if (self.callbacks.length > 0) {
-      self.callbacks.forEach(callbackObj => {
-        callbackObj.success(self.data)
-        // console.log(res)
-      });
-    }
+    setTimeout(() => {
+      if (self.callbacks.length > 0) {
+        self.callbacks.forEach(callbackObj => {
+          callbackObj.success(self.data)
+          // console.log(res)
+        });
+      }  
+    }, 0);
   }
   // 定义reject
   function reject(reason) {
@@ -36,17 +38,20 @@ function Promise(excutor) {
     // 修改数据
     self.data = reason
     // 调用失败的回调
-    if (self.callbacks.length > 0) {
-      self.callbacks.forEach(callbackObj => {
-        callbackObj.fail(self.data)
-      });
-    }
+    setTimeout(() => {
+      if (self.callbacks.length > 0) {
+        self.callbacks.forEach(callbackObj => {
+          callbackObj.fail(self.data)
+        });
+      }
+    }, 0);
   }
   // 如果执行器抛出错误,状态为rejected
   try {
     // 调用执行器
     excutor(resolve, reject)
-  } catch (e) {
+  }
+  catch (e) {
     reject(e)
   }
 }
@@ -65,7 +70,7 @@ Promise.prototype.then = function (onResolved, onRejected) {
   return new Promise((resolve, reject) => {
     // 封装回调调用
     function callback(type) {
-      setTimeout(() => {
+      // setTimeout(() => {
         try {
           // 获取成功回调的返回结果
           let res = type(self.data)
@@ -82,18 +87,23 @@ Promise.prototype.then = function (onResolved, onRejected) {
           } else {
             resolve(res)
           }
-        } catch (e) {
+        }
+        catch (e) {
           reject(e)
         }
-      }, 0)
+      // }, 0)
     }
     // 当状态为resolved
     if (self.status === "resolved") {
-      callback(onResolved)
+      setTimeout(() => {
+        callback(onResolved)
+      }, 0);
     }
     // 当状态为rejected
     if (self.status === "rejected") {
-      callback(onRejected)
+      setTimeout(() => {
+        callback(onRejected) 
+      }, 0);
     }
     // 异步任务 存储回调
     if (self.status === "pending") {
@@ -124,41 +134,41 @@ Promise.prototype.catch = function (onRejected) {
 }
 
 // Promise.resolve
-Promise.resolve = function (value){
-  return new Promise((resolve, reject)=>{
-    if(value instanceof Promise){
+Promise.resolve = function (value) {
+  return new Promise((resolve, reject) => {
+    if (value instanceof Promise) {
       value.then(resolve, reject)
-    }else{
+    } else {
       resolve(value)
     }
   })
 }
 
 // Promise.reject
-Promise.reject = function (reason){
-  return new Promise((resolve, reject)=>{
+Promise.reject = function (reason) {
+  return new Promise((resolve, reject) => {
     reject(reason)
   })
 }
 
 // Promise.all
-Promise.all = function (promiseArr){
-  return new Promise((resolve, reject)=>{
+Promise.all = function (promiseArr) {
+  return new Promise((resolve, reject) => {
     let num = 0;   // 定义计数器 在for循环之外
     let proArr = []; // 定义数组,用来存储值 
-    for(let i in promiseArr){  
+    for (let i in promiseArr) {
       // console.log(promiseArr[i])
       promiseArr[i].then(
-        (v)=>{
-          num ++;  // 累加
+        (v) => {
+          num++;  // 累加
           proArr.push(v)  // 将每一项的值放到数组中
           // console.log(proArr)
-          if(num === promiseArr.length){  // 判断长度
+          if (num === promiseArr.length) {  // 判断长度
             // console.log("都成功了")
             resolve(proArr)
           }
         },
-        (r)=>{
+        (r) => {
           reject(r)
         }
       )
@@ -167,14 +177,14 @@ Promise.all = function (promiseArr){
 }
 
 // Promise.race
-Promise.race = function (promiseArr){
-  return new Promise((resolve, reject)=>{
-    for(let i in promiseArr){
+Promise.race = function (promiseArr) {
+  return new Promise((resolve, reject) => {
+    for (let i in promiseArr) {
       promiseArr[i].then(
-        (v)=>{
+        (v) => {
           resolve(v)
         },
-        (r)=>{
+        (r) => {
           reject(r)
         }
       )

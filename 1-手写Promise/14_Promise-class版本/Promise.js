@@ -19,12 +19,14 @@ class Promise {
       // 修改数据
       self.data = value
       // 调用成功的回调
-      if (self.callbacks.length > 0) {
-        self.callbacks.forEach(callbackObj => {
-          callbackObj.success(self.data)
-          // console.log(res)
-        });
-      }
+      setTimeout(() => {
+        if (self.callbacks.length > 0) {
+          self.callbacks.forEach(callbackObj => {
+            callbackObj.success(self.data)
+            // console.log(res)
+          });
+        }
+      }, 0);
     }
     // 定义reject
     function reject(reason) {
@@ -63,7 +65,7 @@ class Promise {
     return new Promise((resolve, reject) => {
       // 封装回调调用
       function callback(type) {
-        setTimeout(() => {
+        // setTimeout(() => {
           try {
             // 获取成功回调的返回结果
             let res = type(self.data)
@@ -83,15 +85,19 @@ class Promise {
           } catch (e) {
             reject(e)
           }
-        }, 0)
+        // }, 0)
       }
       // 当状态为resolved
       if (self.status === "resolved") {
-        callback(onResolved)
+        setTimeout(() => {
+          callback(onResolved)
+        }, 0);
       }
       // 当状态为rejected
       if (self.status === "rejected") {
-        callback(onRejected)
+        setTimeout(() => {
+          callback(onRejected)
+        }, 0);
       }
       // 异步任务 存储回调
       if (self.status === "pending") {
@@ -123,7 +129,15 @@ class Promise {
   static resolve(value) {
     return new Promise((resolve, reject) => {
       if (value instanceof Promise) {
-        value.then(resolve, reject)
+        value.then(
+          v => {
+            resolve(v)
+          },
+          r => {
+            reject(r)
+          }
+        )
+        // return value
       } else {
         resolve(value)
       }

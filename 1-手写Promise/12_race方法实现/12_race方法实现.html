@@ -16,14 +16,16 @@
         封装思路:
         1. race的参数及返回值是什么?
         2. 第一个返回的promise就是race的结果
-
     */
+
     //声明三个成功的 Promise 对象
     const p1 = new Promise((resolve, reject) => {
         reject(111);
     });
 
-    const p2 = Promise.resolve(222);
+    const p2 = Promise.resolve(new Promise((resolve, reject) => {
+        reject(222);
+    }));
     // const p2 = Promise.reject(555);
 
     const p3 = new Promise((resolve, reject) => {
@@ -32,16 +34,25 @@
         }, 1000)
     });
 
-    let p = Promise.race([ p3, p2, p1]);
+    let p = Promise.race([p1,p2,p3]);
 
-    p.then(
-        value => {
-            console.log(value);
-        },
-        reason => {
-            console.error(reason);
-        }
-    );
+    console.log(p)
+
+    // let pp = new Promise((resolve, reject)=>{
+    //     // setTimeout(()=>{
+    //         // resolve("成功了")
+    //         reject("失败了")
+    //     // },2000)
+    // })
+    // pp.then(
+    //     value => {
+    //         console.log(value);
+    //     },
+    //     reason => {
+    //         console.error(reason);
+    //     }
+    // );
+    // console.log(111)
 </script>
 </body>
 </html>
