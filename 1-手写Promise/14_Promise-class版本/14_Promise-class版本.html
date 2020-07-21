@@ -19,6 +19,33 @@
             4. 构造函数的方法需要静态方法,例如:static resolve(){}
     */
 
+    // let p = new Promise((resolve, reject)=>{
+    //     // resolve("成功了")
+    //     reject("失败了")
+    // })
+
+    // p.then(
+    //     (v)=>{
+    //         console.log(v)
+    //     },
+    //     // (r)=>{
+    //     //     throw r;
+    //     // }
+    // )
+    // .catch(
+    //     (r)=>{
+    //         console.log(r)
+    //     }
+    // )
+    // console.log(p)
+
+    let p1 = Promise.resolve(new Promise((resolve, reject)=>{
+        resolve("成功了1")
+    }))
+    let p2 = Promise.reject("成功2")
+    // let result = Promise.all([p1, p2])
+    let result = Promise.race([p1, p2])
+    console.log(result)
 </script>
 </body>
 </html>
