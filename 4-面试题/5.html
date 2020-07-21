@@ -12,25 +12,40 @@
 <body>
     <script type="text/javascript">
         /* 
-            宏:
-            微:
-            控制台:
+            宏: 4 
+            微: 5 
+            控制台: 1 2 3 5 4
          */
         //依次输出 
-        setTimeout(function () {
-            console.log(4)
-        }, 0);
-        new Promise(function (resolve) {
-            console.log(1)
-            for (var i = 0; i < 10000; i++) {
-                i === 9999 && resolve()
-            }
-            console.log(2)
-        }).then(function () {
-            console.log(5)
-        });
-        console.log(3);
+        // setTimeout(function () {
+        //     console.log(4)
+        // }, 0);
+        // new Promise(function (resolve) {
+        //     console.log(1)
+        //     for (var i = 0; i < 10000; i++) {
+        //         i === 9999 && resolve()
+        //         // if(i === 9999){
+        //         //     resolve()
+        //         // }
+        //         // if(i === 9999 && a === 100){
+        //         //     console.log(111)
+        //         // }
+        //     }
+        //     console.log(2)
+        // }).then(function () {
+        //     console.log(5)
+        // });
+        // console.log(3);
 
+        let a = 100;
+        // a === 100 && console.log("执行了")
+        // if(a === 100){
+        //     console.log("执行了")
+        // }
+
+        if(a === 100 && typeof a === "number"){
+            console.log("同时满足了")
+        }
 
     </script>
 

@@ -9,16 +9,19 @@
     <script>
         //宏任务
         setTimeout(()=>{
-            console.log("我是一个宏任务哦!");
-        });
+            console.log("我是宏任务3")
+        },0)
 
-        //微任务
         let p = new Promise((resolve, reject)=>{
-            resolve("我是一个微任务哦!");
-        });
-        p.then(value=>{
-            console.log(value);
-        });
+            console.log(1)
+            resolve("我是一个微任务2")
+        })
+        .then(
+            v=>{
+                console.log(v)
+            }
+        )
+        console.log(4)
 
     </script>
 </body>
